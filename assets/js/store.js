@@ -1,8 +1,8 @@
-const products=[{id:1,name:'سبد مصرف خانوار',price:2480000,desc:'سبد منتخب کالاهای مصرفی'},{id:2,name:'بسته خرید روزانه',price:1320000,desc:'پیشنهاد ویژه تعاونی'},{id:3,name:'بسته خانه و خانواده',price:3750000,desc:'محصولات منتخب خانه'}];
+const products=[{id:1,name:'سبد مصرف خانوار',price:2480000,desc:'سبد منتخب کالاهای مصرفی'},{id:2,name:'بسته خرید روزانه',price:1320000,desc:'پیشنهاد ویژه تعاونی'},{id:3,name:'بسته خانه و خانواده',price:3750000,desc:'محصولات منتخب خانه'},{id:4,name:'سبد مواد غذایی پایه',price:1800000,desc:'اقلام اساسی خرید خانوار'},{id:5,name:'سبد بهداشتی خانواده',price:950000,desc:'اقلام منتخب سلامت و بهداشت'},{id:6,name:'بسته خدمات اعضا',price:1620000,desc:'خدمات تکمیلی و مزایای اعضا'}];
 const money=n=>new Intl.NumberFormat('fa-IR').format(n)+' تومان';
 const getCart=()=>JSON.parse(localStorage.getItem('taavoniCart')||'[]');
 const saveCart=c=>localStorage.setItem('taavoniCart',JSON.stringify(c));
-function addToCart(id){const p=products.find(x=>x.id===id),c=getCart(),item=c.find(x=>x.id===id);item?item.qty++:c.push({...p,qty:1});saveCart(c);renderCartBadge();showToast('محصول به سبد خرید اضافه شد');}
+function addToCart(id){const p=products.find(x=>x.id===id);if(!p)return;const c=getCart(),item=c.find(x=>x.id===id);item?item.qty++:c.push({...p,qty:1});saveCart(c);renderCartBadge();showToast('محصول به سبد خرید اضافه شد');}
 function removeFromCart(id){saveCart(getCart().filter(x=>x.id!==id));renderCart();renderCartBadge();}
 function changeQty(id,d){const c=getCart(),i=c.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<1)c.splice(c.indexOf(i),1);saveCart(c);renderCart();renderCartBadge();}
 function total(){return getCart().reduce((s,x)=>s+x.price*x.qty,0)}
