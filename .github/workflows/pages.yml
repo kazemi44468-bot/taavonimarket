@@ -21,10 +21,28 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload source
+      - name: Build unified site shell
+        shell: bash
+        run: |
+          set -e
+          rm -rf _site
+          mkdir _site
+          tar --exclude='./_site' -cf - . | tar -xf - -C _site
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('_site')
+          for p in root.rglob('*.html'):
+              text=p.read_text(encoding='utf-8')
+              if 'assets/css/site.css' not in text:
+                  text=text.replace('</head>','<link rel="stylesheet" href="assets/css/site.css"></head>',1)
+              if 'assets/js/site.js' not in text:
+                  text=text.replace('</body>','<script src="assets/js/site.js"></script></body>',1)
+              p.write_text(text,encoding='utf-8')
+          PY
+      - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
