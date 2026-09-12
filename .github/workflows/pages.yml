@@ -27,8 +27,7 @@ jobs:
           set -e
           rm -rf _site
           mkdir _site
-          cp -R . _site
-          rm -rf _site/.git _site/.github _site/_site
+          cp -R ./* _site/
           python3 - <<'PY'
           from pathlib import Path
           root=Path('_site')
