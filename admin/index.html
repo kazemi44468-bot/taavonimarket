@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a2f">
+<title>پنل مدیریت | تعاونی مارکت</title>
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-app">
+<aside class="admin-sidebar" id="sidebar">
+<div class="admin-brand"><div class="brand-mark">ت</div><div><strong>تعاونی مارکت</strong><span>مرکز مدیریت</span></div></div>
+<nav class="admin-nav">
+<a class="active" href="#dashboard" data-section="dashboard"><i>⌂</i><span>داشبورد</span></a>
+<a href="#orders" data-section="orders"><i>▤</i><span>سفارش‌ها</span><b>۱۲</b></a>
+<a href="#products" data-section="products"><i>□</i><span>محصولات و خدمات</span></a>
+<a href="#members" data-section="members"><i>♙</i><span>اعضا</span></a>
+<a href="#credit" data-section="credit"><i>◇</i><span>اعتبار اعضا</span></a>
+<a href="#plans" data-section="plans"><i>◈</i><span>طرح‌های ویژه</span></a>
+<a href="#reports" data-section="reports"><i>◫</i><span>گزارش‌ها</span></a>
+<a href="#settings" data-section="settings"><i>⚙</i><span>تنظیمات</span></a>
+</nav>
+<div class="sidebar-bottom"><a href="../index.html">← مشاهده فروشگاه</a><div class="admin-user"><div class="avatar">م</div><div><strong>مدیر سامانه</strong><small>مدیریت کل</small></div><button title="خروج">↪</button></div></div>
+</aside>
+<main class="admin-main">
+<header class="admin-topbar"><button class="menu-btn" id="menuBtn">☰</button><div class="crumb"><span>پنل مدیریت</span><strong id="pageTitle">داشبورد</strong></div><div class="top-actions"><button class="icon-btn" title="اعلان‌ها">♢<em>۳</em></button><a class="store-link" href="../index.html">فروشگاه ↗</a></div></header>
+<div class="admin-content">
+<section class="admin-section active" id="dashboard">
+<div class="welcome"><div><span class="eyebrow">مرکز فرمان تعاونی مارکت</span><h1>خوش آمدید، مدیر سامانه</h1><p>وضعیت فروشگاه، سفارش‌ها، اعضا و اعتبار را از یک نقطه مدیریت کنید.</p></div><div class="date-box"><span>وضعیت سامانه</span><strong><i></i> فعال و پایدار</strong></div></div>
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-icon green">◈</div><span>فروش امروز</span><strong>۱۸۶,۴۰۰,۰۰۰ <small>تومان</small></strong><em class="up">+۱۲.۸٪</em></div>
+<div class="stat-card"><div class="stat-icon blue">▤</div><span>سفارش‌های امروز</span><strong>۱۲۸ <small>سفارش</small></strong><em class="up">+۸.۴٪</em></div>
+<div class="stat-card"><div class="stat-icon gold">♙</div><span>اعضای فعال</span><strong>۲۴,۸۶۰ <small>عضو</small></strong><em class="up">+۳.۲٪</em></div>
+<div class="stat-card"><div class="stat-icon purple">◇</div><span>اعتبار استفاده‌شده</span><strong>۶۸۴,۲۰۰,۰۰۰ <small>تومان</small></strong><em>از ۱.۱ میلیارد</em></div>
+</div>
+<div class="dashboard-grid">
+<div class="panel sales-panel"><div class="panel-head"><div><h2>روند فروش</h2><span>هفت روز اخیر</span></div><select><option>۷ روز اخیر</option><option>۳۰ روز اخیر</option></select></div><div class="chart"><div class="chart-grid"><span>۳۰۰م</span><span>۲۰۰م</span><span>۱۰۰م</span><span>۰</span></div><svg viewBox="0 0 720 260" preserveAspectRatio="none"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-opacity=".24"/><stop offset="1" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 205 C65 190 75 160 120 174 S180 115 230 142 S290 115 340 128 S400 75 450 104 S510 92 550 111 S615 42 665 70 S700 45 720 55 L720 260 L0 260Z"/><path class="line" d="M0 205 C65 190 75 160 120 174 S180 115 230 142 S290 115 340 128 S400 75 450 104 S510 92 550 111 S615 42 665 70 S700 45 720 55"/></svg><div class="chart-labels"><span>شنبه</span><span>یکشنبه</span><span>دوشنبه</span><span>سه‌شنبه</span><span>چهارشنبه</span><span>پنجشنبه</span><span>جمعه</span></div></div></div>
+<div class="panel quick-panel"><div class="panel-head"><div><h2>دسترسی سریع</h2><span>عملیات پرکاربرد</span></div></div><div class="quick-grid"><a href="#products"><b>＋</b><span>افزودن محصول</span></a><a href="#orders"><b>▤</b><span>سفارش‌ها</span></a><a href="#members"><b>♙</b><span>مدیریت اعضا</span></a><a href="#plans"><b>◈</b><span>طرح ویژه</span></a><a href="#credit"><b>◇</b><span>اعتبار</span></a><a href="#reports"><b>◫</b><span>گزارش فروش</span></a></div></div>
+</div>
+<div class="lower-grid"><div class="panel"><div class="panel-head"><div><h2>آخرین سفارش‌ها</h2><span>فعالیت‌های اخیر فروشگاه</span></div><a href="#orders">مشاهده همه ←</a></div><div class="table-wrap"><table><thead><tr><th>شماره</th><th>عضو / مشتری</th><th>مبلغ</th><th>وضعیت</th></tr></thead><tbody><tr><td>#TM-48291</td><td><strong>علی رضایی</strong><small>عضو تعاونی کارکنان</small></td><td>۳,۸۴۰,۰۰۰ تومان</td><td><b class="status success">تکمیل شده</b></td></tr><tr><td>#TM-48290</td><td><strong>مریم احمدی</strong><small>عضو فعال</small></td><td>۱,۹۶۰,۰۰۰ تومان</td><td><b class="status pending">در حال پردازش</b></td></tr><tr><td>#TM-48289</td><td><strong>تعاونی مسکن الف</strong><small>خرید سازمانی</small></td><td>۲۴,۶۰۰,۰۰۰ تومان</td><td><b class="status success">تکمیل شده</b></td></tr><tr><td>#TM-48288</td><td><strong>رضا کریمی</strong><small>عضو فعال</small></td><td>۷۸۰,۰۰۰ تومان</td><td><b class="status waiting">در انتظار پرداخت</b></td></tr></tbody></table></div></div>
+<div class="panel alerts"><div class="panel-head"><div><h2>وضعیت سامانه</h2><span>کنترل‌های مهم</span></div></div><div class="alert-item"><i class="ok">✓</i><div><strong>فروشگاه آنلاین</strong><span>فعال و در دسترس</span></div><b>فعال</b></div><div class="alert-item"><i class="ok">✓</i><div><strong>پرداخت‌ها</strong><span>درگاه پرداخت عملیاتی است</span></div><b>فعال</b></div><div class="alert-item"><i class="info">i</i><div><strong>اعتبار اعضا</strong><span>۳ درخواست نیازمند بررسی</span></div><b class="orange">بررسی</b></div></div></div>
+</section>
+<section class="admin-section" id="orders"><div class="section-heading"><div><span class="eyebrow">مدیریت فروش</span><h1>سفارش‌ها</h1><p>مشاهده، پیگیری و مدیریت سفارش‌های فروشگاه.</p></div><button class="primary">＋ ثبت سفارش</button></div><div class="empty-demo panel"><div class="big-symbol">▤</div><h2>مرکز مدیریت سفارش‌ها</h2><p>در نسخه عملیاتی، فهرست سفارش‌ها، وضعیت پرداخت، ارسال و جزئیات هر سفارش در این بخش مدیریت می‌شود.</p></div></section>
+<section class="admin-section" id="products"><div class="section-heading"><div><span class="eyebrow">کاتالوگ</span><h1>محصولات و خدمات</h1><p>مدیریت کالاها، خدمات، قیمت و موجودی.</p></div><button class="primary">＋ افزودن محصول</button></div><div class="mini-cards"><div class="panel"><strong>۶</strong><span>محصول فعال</span></div><div class="panel"><strong>۳</strong><span>خدمت فعال</span></div><div class="panel"><strong>۲</strong><span>نیازمند بروزرسانی</span></div></div></section>
+<section class="admin-section" id="members"><div class="section-heading"><div><span class="eyebrow">جامعه اعضا</span><h1>مدیریت اعضا</h1><p>اعضا، تعاونی‌ها و وضعیت عضویت را مدیریت کنید.</p></div><button class="primary">＋ عضو جدید</button></div><div class="member-overview panel"><div><strong>۲۴,۸۶۰</strong><span>اعضای فعال</span></div><div><strong>۳۸۴</strong><span>تعاونی ثبت‌شده</span></div><div><strong>۹۲٪</strong><span>عضویت فعال</span></div><div><strong>۱,۲۴۰</strong><span>عضو جدید این ماه</span></div></div></section>
+<section class="admin-section" id="credit"><div class="section-heading"><div><span class="eyebrow">TAAVONI CREDIT</span><h1>اعتبار اعضا</h1><p>کنترل اعتبار خرید و درخواست‌های اعضا.</p></div><button class="primary">＋ تخصیص اعتبار</button></div><div class="credit-admin panel"><div class="credit-number"><span>اعتبار قابل استفاده</span><strong>۱,۱۰۵,۸۰۰,۰۰۰ تومان</strong></div><div class="credit-stat"><span>سقف اعتبار اعضا</span><strong>۱,۷۸۰,۰۰۰,۰۰۰</strong></div><div class="credit-stat"><span>استفاده‌شده</span><strong>۶۸۴,۲۰۰,۰۰۰</strong></div></div></section>
+<section class="admin-section" id="plans"><div class="section-heading"><div><span class="eyebrow">پیشنهادهای ویژه</span><h1>طرح‌های ویژه</h1><p>طرح‌ها و پیشنهادهای اختصاصی اعضای تعاونی‌ها.</p></div><button class="primary">＋ طرح جدید</button></div><div class="plan-admin-grid"><div class="panel featured"><span>ویژه</span><h2>طرح ۱۴؛ کت و شلوار دست‌دوز</h2><p>عرضه اختصاصی برای اعضا</p><b>فعال</b></div><div class="panel featured"><span>ویژه</span><h2>طرح کندوی عسل بهشت</h2><p>محصول منتخب اعضا</p><b>فعال</b></div><div class="panel"><h2>طرح دامداد</h2><p>طرح خدمات و خرید اختصاصی</p><b>فعال</b></div></div></section>
+<section class="admin-section" id="reports"><div class="section-heading"><div><span class="eyebrow">تحلیل و تصمیم‌گیری</span><h1>گزارش‌ها</h1><p>گزارش فروش، اعضا، اعتبار و عملکرد فروشگاه.</p></div></div><div class="report-grid"><div class="panel"><strong>گزارش فروش</strong><span>روزانه، ماهانه و سالانه</span><button>مشاهده گزارش ←</button></div><div class="panel"><strong>گزارش اعضا</strong><span>رشد و فعالیت جامعه اعضا</span><button>مشاهده گزارش ←</button></div><div class="panel"><strong>گزارش اعتبار</strong><span>مصرف و بازپرداخت اعتبار</span><button>مشاهده گزارش ←</button></div></div></section>
+<section class="admin-section" id="settings"><div class="section-heading"><div><span class="eyebrow">پیکربندی</span><h1>تنظیمات سامانه</h1><p>تنظیمات عمومی و مدیریتی تعاونی مارکت.</p></div></div><div class="settings-list panel"><a href="#"><span><strong>اطلاعات فروشگاه</strong><small>نام، لوگو، اطلاعات تماس و دامنه</small></span><b>→</b></a><a href="#"><span><strong>روش‌های پرداخت</strong><small>درگاه‌ها و تنظیمات پرداخت</small></span><b>→</b></a><a href="#"><span><strong>کاربران و دسترسی‌ها</strong><small>نقش‌ها، مدیران و سطح دسترسی</small></span><b>→</b></a><a href="#"><span><strong>اعلان‌ها</strong><small>پیامک، ایمیل و اعلان‌های سامانه</small></span><b>→</b></a></div></section>
+</div>
+<footer class="admin-footer"><span>تعاونی مارکت</span><span>پنل مدیریت سامانه • نسخه ۱.۰</span></footer>
+</main></div>
+<script src="admin.js"></script>
+</body></html>
