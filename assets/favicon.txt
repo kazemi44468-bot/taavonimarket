@@ -1,1 +1,0 @@
-favicon.svg is the canonical Taavoni Market site icon. Shared site shell should reference ../assets/favicon.svg from nested pages and assets/favicon.svg from root pages.

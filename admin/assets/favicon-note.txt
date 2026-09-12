@@ -1,1 +1,0 @@
-The admin panel uses the same visual mark as the main Taavoni Market favicon.
