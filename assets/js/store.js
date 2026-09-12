@@ -1,0 +1,12 @@
+const products=[{id:1,name:'سبد مصرف خانوار',price:2480000,desc:'سبد منتخب کالاهای مصرفی'},{id:2,name:'بسته خرید روزانه',price:1320000,desc:'پیشنهاد ویژه تعاونی'},{id:3,name:'بسته خانه و خانواده',price:3750000,desc:'محصولات منتخب خانه'}];
+const money=n=>new Intl.NumberFormat('fa-IR').format(n)+' تومان';
+const getCart=()=>JSON.parse(localStorage.getItem('taavoniCart')||'[]');
+const saveCart=c=>localStorage.setItem('taavoniCart',JSON.stringify(c));
+function addToCart(id){const p=products.find(x=>x.id===id),c=getCart(),item=c.find(x=>x.id===id);item?item.qty++:c.push({...p,qty:1});saveCart(c);renderCartBadge();showToast('محصول به سبد خرید اضافه شد');}
+function removeFromCart(id){saveCart(getCart().filter(x=>x.id!==id));renderCart();renderCartBadge();}
+function changeQty(id,d){const c=getCart(),i=c.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<1)c.splice(c.indexOf(i),1);saveCart(c);renderCart();renderCartBadge();}
+function total(){return getCart().reduce((s,x)=>s+x.price*x.qty,0)}
+function renderCartBadge(){const n=getCart().reduce((s,x)=>s+x.qty,0);document.querySelectorAll('[data-cart-count]').forEach(e=>{e.textContent=n;e.hidden=!n});}
+function renderCart(){const box=document.querySelector('#cartItems');if(!box)return;const c=getCart();box.innerHTML=c.length?c.map(x=>`<article class="cart-item"><div><b>${x.name}</b><small>${money(x.price)}</small></div><div class="qty"><button onclick="changeQty(${x.id},-1)">−</button><strong>${x.qty}</strong><button onclick="changeQty(${x.id},1)">+</button></div><button class="remove" onclick="removeFromCart(${x.id})">حذف</button></article>`).join(''):'<div class="empty-cart">سبد خرید شما خالی است.</div>';const t=document.querySelector('#cartTotal');if(t)t.textContent=money(total());}
+function showToast(t){let e=document.querySelector('.toast');if(!e){e=document.createElement('div');e.className='toast';document.body.appendChild(e)}e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+document.addEventListener('DOMContentLoaded',()=>{renderCartBadge();renderCart();});
