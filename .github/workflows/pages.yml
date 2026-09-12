@@ -27,7 +27,7 @@ jobs:
           set -e
           rm -rf _site
           mkdir _site
-          cp -R ./* _site/
+          tar --exclude='./_site' -cf - . | tar -xf - -C _site
           python3 - <<'PY'
           from pathlib import Path
           root=Path('_site')
