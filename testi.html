@@ -1,0 +1,2796 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فروشگاه | تعاونی مارکت</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & ROOT
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#10b981;
+  --primary-dark:#059669;
+  --primary-deep:#047857;
+  --primary-light:#d1fae5;
+  --primary-soft:#ecfdf5;
+  --dark:#111827;
+  --dark-2:#1f2937;
+  --gray:#6b7280;
+  --gray-2:#9ca3af;
+  --gray-3:#e5e7eb;
+  --light:#f9fafb;
+  --cream:#fefce8;
+  --white:#ffffff;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --gold:#eab308;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 12px rgba(0,0,0,.08);
+  --shadow-md:0 12px 28px rgba(0,0,0,.1);
+  --shadow-lg:0 24px 48px rgba(0,0,0,.14);
+  --radius:14px;
+  --radius-lg:20px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  line-height:1.7;
+  overflow-x:hidden;
+  padding-bottom:0;
+}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select{font-family:inherit}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.top-strip{
+  background:linear-gradient(90deg,var(--primary-deep),var(--primary),var(--primary-dark));
+  color:#fff;
+  text-align:center;
+  padding:9px 16px;
+  font-size:12.5px;
+  font-weight:600;
+  letter-spacing:.2px;
+  position:relative;
+  overflow:hidden;
+}
+.top-strip::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:stripSlide 4s infinite;
+}
+@keyframes stripSlide{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--gray-3);
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+.header-inner{
+  max-width:1320px;
+  margin:auto;
+  padding:14px 28px;
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:900;
+  font-size:18px;
+  color:var(--dark);
+  cursor:pointer;
+  white-space:nowrap;
+}
+.logo-mark{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:22px;
+  box-shadow:0 8px 18px rgba(16,185,129,.3);
+  position:relative;
+  overflow:hidden;
+}
+.logo-mark::after{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.5) 50%,transparent 60%);
+  animation:logoShine 3.5s infinite;
+}
+@keyframes logoShine{
+  0%,100%{transform:translateX(-100%) rotate(45deg)}
+  50%{transform:translateX(100%) rotate(45deg)}
+}
+.logo-text small{
+  display:block;
+  font-size:9.5px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  color:var(--gray-2);
+  margin-top:1px;
+}
+
+/* SEARCH */
+.search-box{
+  flex:1;
+  max-width:520px;
+  position:relative;
+}
+.search-box input{
+  width:100%;
+  padding:12px 46px 12px 18px;
+  border:2px solid var(--gray-3);
+  border-radius:14px;
+  font-size:13.5px;
+  background:var(--light);
+  transition:all .3s;
+  outline:none;
+}
+.search-box input:focus{
+  border-color:var(--primary);
+  background:var(--white);
+  box-shadow:0 0 0 4px rgba(16,185,129,.12);
+}
+.search-icon{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gray-2);
+  pointer-events:none;
+  font-size:16px;
+}
+
+/* SEARCH SUGGESTIONS */
+.search-suggest{
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  left:0;
+  background:var(--white);
+  border-radius:16px;
+  box-shadow:var(--shadow-lg);
+  padding:8px;
+  max-height:380px;
+  overflow-y:auto;
+  display:none;
+  z-index:50;
+  border:1px solid var(--gray-3);
+}
+.search-suggest.show{display:block;animation:fadeDown .25s}
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.suggest-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.suggest-item:hover{background:var(--primary-soft)}
+.suggest-emoji{
+  width:42px;height:42px;
+  background:var(--primary-light);
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  flex-shrink:0;
+}
+.suggest-info{flex:1;min-width:0}
+.suggest-info b{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  color:var(--dark);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.suggest-info small{
+  font-size:11px;
+  color:var(--gray);
+}
+.suggest-price{
+  font-size:13px;
+  font-weight:800;
+  color:var(--primary-deep);
+  white-space:nowrap;
+}
+.suggest-empty{
+  padding:24px;
+  text-align:center;
+  color:var(--gray);
+  font-size:13px;
+}
+
+/* HEADER ACTIONS */
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-right:auto;
+}
+.icon-btn{
+  width:44px;height:44px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:var(--light);
+  color:var(--gray);
+  transition:all .25s;
+  font-size:18px;
+  position:relative;
+}
+.icon-btn:hover{
+  background:var(--primary-light);
+  color:var(--primary-deep);
+}
+.icon-btn .dot{
+  position:absolute;
+  top:8px;left:8px;
+  min-width:18px;height:18px;
+  padding:0 5px;
+  background:var(--danger);
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--white);
+}
+.icon-btn .dot.hidden{display:none}
+
+.cart-btn{
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  padding:12px 20px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:all .3s;
+  box-shadow:0 8px 18px rgba(16,185,129,.28);
+}
+.cart-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(16,185,129,.4);
+}
+.cart-btn .count{
+  background:rgba(255,255,255,.25);
+  padding:2px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:900;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  background:linear-gradient(135deg,#065f46 0%,#059669 50%,#10b981 100%);
+  color:#fff;
+  padding:70px 28px 80px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-30%;right:-10%;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);
+  border-radius:50%;
+  animation:heroFloat1 12s ease-in-out infinite;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-40%;left:-8%;
+  width:420px;height:420px;
+  background:radial-gradient(circle,rgba(234,179,8,.15),transparent 65%);
+  border-radius:50%;
+  animation:heroFloat2 15s ease-in-out infinite;
+}
+@keyframes heroFloat1{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(-30px,30px) scale(1.15)}
+}
+@keyframes heroFloat2{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(40px,-20px) scale(1.1)}
+}
+.hero-inner{
+  position:relative;
+  z-index:1;
+  max-width:760px;
+  margin:auto;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);
+  padding:8px 18px;
+  border-radius:100px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:20px;
+  border:1px solid rgba(255,255,255,.2);
+}
+.hero-badge .pulse{
+  width:8px;height:8px;
+  background:#fbbf24;
+  border-radius:50%;
+  animation:pulse 1.8s infinite;
+  box-shadow:0 0 0 0 rgba(251,191,36,.7);
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(251,191,36,.7)}
+  70%{box-shadow:0 0 0 10px rgba(251,191,36,0)}
+  100%{box-shadow:0 0 0 0 rgba(251,191,36,0)}
+}
+.hero h1{
+  font-size:clamp(30px,4.5vw,48px);
+  font-weight:900;
+  line-height:1.25;
+  margin-bottom:16px;
+  letter-spacing:-.5px;
+}
+.hero h1 em{
+  font-style:normal;
+  color:#fbbf24;
+  position:relative;
+  display:inline-block;
+}
+.hero h1 em::after{
+  content:'';
+  position:absolute;
+  bottom:2px;right:0;left:0;
+  height:8px;
+  background:rgba(251,191,36,.25);
+  border-radius:4px;
+  z-index:-1;
+}
+.hero p{
+  font-size:15.5px;
+  opacity:.92;
+  margin-bottom:28px;
+  line-height:2;
+}
+.hero-features{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.hero-feature{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);
+  padding:9px 18px;
+  border-radius:100px;
+  font-size:12.5px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.hero-feature::before{content:'✓';font-weight:900;color:#fbbf24}
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+.toolbar{
+  max-width:1320px;
+  margin:auto;
+  padding:24px 28px 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  flex:1;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.categories::-webkit-scrollbar{display:none}
+.cat-btn{
+  padding:10px 20px;
+  border:2px solid var(--gray-3);
+  background:var(--white);
+  border-radius:100px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--gray);
+  white-space:nowrap;
+  transition:all .25s;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-shrink:0;
+}
+.cat-btn:hover{
+  border-color:var(--primary);
+  color:var(--primary-deep);
+  transform:translateY(-2px);
+}
+.cat-btn.active{
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  border-color:var(--primary);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(16,185,129,.3);
+}
+.cat-btn .cat-count{
+  background:rgba(0,0,0,.06);
+  padding:2px 8px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:900;
+}
+.cat-btn.active .cat-count{
+  background:rgba(255,255,255,.22);
+  color:#fff;
+}
+
+/* SORT */
+.sort-select{
+  position:relative;
+  flex-shrink:0;
+}
+.sort-select select{
+  appearance:none;
+  -webkit-appearance:none;
+  padding:11px 42px 11px 18px;
+  border:2px solid var(--gray-3);
+  background:var(--white);
+  border-radius:100px;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--dark);
+  cursor:pointer;
+  outline:none;
+  transition:all .25s;
+  min-width:170px;
+}
+.sort-select select:hover,
+.sort-select select:focus{
+  border-color:var(--primary);
+}
+.sort-select::after{
+  content:'▾';
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gray);
+  pointer-events:none;
+  font-size:12px;
+}
+
+/* FILTER TOGGLE (mobile) */
+.filter-toggle{
+  display:none;
+  padding:11px 18px;
+  border:2px solid var(--gray-3);
+  background:var(--white);
+  border-radius:100px;
+  font-size:12.5px;
+  font-weight:800;
+  color:var(--dark);
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  transition:all .25s;
+  position:relative;
+}
+.filter-toggle:hover{border-color:var(--primary);color:var(--primary-deep)}
+.filter-toggle .active-dot{
+  position:absolute;
+  top:-4px;right:-4px;
+  width:12px;height:12px;
+  background:var(--danger);
+  border-radius:50%;
+  border:2px solid var(--white);
+  display:none;
+}
+.filter-toggle.has-filter .active-dot{display:block}
+
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
+.main-layout{
+  max-width:1320px;
+  margin:auto;
+  padding:24px 28px 100px;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:28px;
+  align-items:start;
+}
+
+/* ============================================================
+   SIDEBAR FILTERS
+   ============================================================ */
+.sidebar{
+  position:sticky;
+  top:100px;
+  max-height:calc(100vh - 120px);
+  overflow-y:auto;
+  padding-left:4px;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--gray-3);border-radius:4px}
+
+.filter-box{
+  background:var(--white);
+  border:1px solid var(--gray-3);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:14px;
+}
+.filter-box h3{
+  font-size:14px;
+  font-weight:900;
+  color:var(--dark);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--gray-3);
+}
+.filter-box h3 .ic{
+  width:28px;height:28px;
+  background:var(--primary-light);
+  color:var(--primary-deep);
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+}
+.filter-list{display:flex;flex-direction:column;gap:3px}
+.filter-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:9px 12px;
+  border-radius:10px;
+  font-size:12.5px;
+  color:var(--gray);
+  cursor:pointer;
+  transition:all .2s;
+  font-weight:600;
+}
+.filter-item:hover{
+  background:var(--primary-soft);
+  color:var(--primary-deep);
+}
+.filter-item.active{
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  font-weight:800;
+  box-shadow:0 6px 16px rgba(16,185,129,.25);
+}
+.filter-item .fc{
+  font-size:10px;
+  background:rgba(0,0,0,.06);
+  padding:2px 8px;
+  border-radius:100px;
+  font-weight:800;
+}
+.filter-item.active .fc{background:rgba(255,255,255,.22);color:#fff}
+
+/* Price range */
+.price-range{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:4px;
+}
+.price-range input{
+  flex:1;
+  padding:10px 12px;
+  border:2px solid var(--gray-3);
+  border-radius:10px;
+  font-size:12px;
+  font-weight:600;
+  outline:none;
+  transition:all .2s;
+  min-width:0;
+}
+.price-range input:focus{border-color:var(--primary)}
+.price-range span{color:var(--gray-2);font-weight:700}
+
+/* Checkbox */
+.check-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 6px;
+  font-size:12.5px;
+  color:var(--gray);
+  cursor:pointer;
+  font-weight:600;
+  border-radius:8px;
+  transition:all .2s;
+}
+.check-item:hover{background:var(--primary-soft);color:var(--primary-deep)}
+.check-item input{display:none}
+.check-box{
+  width:20px;height:20px;
+  border:2px solid var(--gray-3);
+  border-radius:6px;
+  display:grid;
+  place-items:center;
+  transition:all .2s;
+  flex-shrink:0;
+  color:transparent;
+  font-size:12px;
+}
+.check-item input:checked + .check-box{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+.products-area{min-width:0}
+.products-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.products-head-left h2{
+  font-size:22px;
+  font-weight:900;
+  color:var(--dark);
+  margin-bottom:4px;
+}
+.products-head-left p{
+  font-size:12.5px;
+  color:var(--gray);
+}
+.products-head-left p b{
+  color:var(--primary-deep);
+  font-weight:800;
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:16px;
+}
+
+/* PRODUCT CARD */
+.product{
+  background:var(--white);
+  border:1px solid var(--gray-3);
+  border-radius:18px;
+  overflow:hidden;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  animation:cardIn .5s backwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.product:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--primary-light);
+}
+.product-media{
+  height:180px;
+  background:linear-gradient(135deg,var(--primary-soft),var(--primary-light));
+  display:grid;
+  place-items:center;
+  font-size:68px;
+  position:relative;
+  overflow:hidden;
+}
+.product-media::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.7),transparent 55%);
+  pointer-events:none;
+}
+.product-media .emoji{
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 8px 16px rgba(5,150,105,.2));
+  transition:transform .4s;
+}
+.product:hover .product-media .emoji{transform:scale(1.15) rotate(-6deg)}
+
+/* BADGES */
+.product-badges{
+  position:absolute;
+  top:12px;
+  right:12px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  z-index:2;
+}
+.badge{
+  padding:4px 10px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:900;
+  color:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.12);
+  letter-spacing:.2px;
+}
+.badge.discount{background:linear-gradient(135deg,#ef4444,#b91c1c)}
+.badge.new{background:linear-gradient(135deg,var(--primary),var(--primary-deep))}
+.badge.hot{background:linear-gradient(135deg,#f59e0b,#b45309)}
+
+/* QUICK ACTIONS */
+.product-quick{
+  position:absolute;
+  top:12px;
+  left:12px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  z-index:2;
+  opacity:0;
+  transform:translateX(-10px);
+  transition:all .3s;
+}
+.product:hover .product-quick{
+  opacity:1;
+  transform:translateX(0);
+}
+.quick-btn{
+  width:34px;height:34px;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  color:var(--gray);
+  font-size:15px;
+  transition:all .25s;
+  box-shadow:var(--shadow-sm);
+}
+.quick-btn:hover{
+  background:var(--primary);
+  color:#fff;
+  transform:scale(1.1);
+}
+.quick-btn.active{
+  background:var(--danger);
+  color:#fff;
+}
+
+/* PRODUCT BODY */
+.product-body{
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.product-cat{
+  display:inline-block;
+  align-self:flex-start;
+  font-size:10px;
+  font-weight:800;
+  color:var(--primary-deep);
+  background:var(--primary-light);
+  padding:3px 9px;
+  border-radius:8px;
+  margin-bottom:9px;
+}
+.product-name{
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--dark);
+  line-height:1.5;
+  margin-bottom:10px;
+  min-height:41px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.product-rating{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:var(--gray);
+  margin-bottom:12px;
+  font-weight:600;
+}
+.product-rating .stars{
+  color:#fbbf24;
+  letter-spacing:-1px;
+  font-size:12px;
+}
+
+/* FOOTER */
+.product-foot{
+  margin-top:auto;
+  padding-top:12px;
+  border-top:1px dashed var(--gray-3);
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:10px;
+}
+.price-block{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.price-old{
+  font-size:10.5px;
+  color:var(--gray-2);
+  text-decoration:line-through;
+  font-weight:600;
+}
+.price-new{
+  font-size:17px;
+  font-weight:900;
+  color:var(--dark);
+  display:flex;
+  align-items:baseline;
+  gap:3px;
+  letter-spacing:-.3px;
+}
+.price-new small{
+  font-size:10px;
+  font-weight:700;
+  color:var(--gray);
+  letter-spacing:0;
+}
+
+.add-btn{
+  width:42px;height:42px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  font-weight:300;
+  transition:all .3s;
+  box-shadow:0 6px 14px rgba(16,185,129,.25);
+  flex-shrink:0;
+}
+.add-btn:hover{
+  transform:translateY(-3px) rotate(90deg);
+  box-shadow:0 10px 22px rgba(16,185,129,.4);
+}
+.add-btn:active{transform:scale(.92) rotate(90deg)}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;
+  padding:70px 20px;
+  background:var(--white);
+  border:2px dashed var(--gray-3);
+  border-radius:20px;
+}
+.empty-state .icon{
+  font-size:64px;
+  margin-bottom:16px;
+  opacity:.5;
+}
+.empty-state h3{
+  font-size:17px;
+  color:var(--dark);
+  margin-bottom:8px;
+}
+.empty-state p{
+  font-size:13px;
+  color:var(--gray);
+  margin-bottom:20px;
+}
+.empty-state button{
+  background:var(--primary);
+  color:#fff;
+  padding:11px 22px;
+  border-radius:11px;
+  font-weight:800;
+  font-size:13px;
+  transition:all .25s;
+}
+.empty-state button:hover{background:var(--primary-deep)}
+
+/* ============================================================
+   LOAD MORE
+   ============================================================ */
+.load-more-wrap{
+  text-align:center;
+  margin-top:32px;
+}
+.load-more{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  background:var(--white);
+  border:2px solid var(--gray-3);
+  color:var(--dark);
+  padding:13px 28px;
+  border-radius:100px;
+  font-size:13px;
+  font-weight:800;
+  transition:all .3s;
+}
+.load-more:hover{
+  border-color:var(--primary);
+  color:var(--primary-deep);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+/* ============================================================
+   CART DRAWER
+   ============================================================ */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.5);
+  backdrop-filter:blur(4px);
+  z-index:200;
+  opacity:0;
+  visibility:hidden;
+  transition:all .3s;
+}
+.overlay.open{opacity:1;visibility:visible}
+
+.cart-drawer{
+  position:fixed;
+  top:0;left:0;
+  width:440px;
+  max-width:100%;
+  height:100vh;
+  height:100dvh;
+  background:var(--white);
+  z-index:201;
+  transform:translateX(-100%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 60px rgba(0,0,0,.2);
+}
+.cart-drawer.open{transform:translateX(0)}
+
+.cart-head{
+  padding:20px 22px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.cart-head h2{
+  font-size:17px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.cart-head h2 .num{
+  background:rgba(255,255,255,.22);
+  padding:3px 10px;
+  border-radius:8px;
+  font-size:12px;
+}
+.cart-close{
+  width:38px;height:38px;
+  background:rgba(255,255,255,.2);
+  border-radius:11px;
+  color:#fff;
+  font-size:17px;
+  display:grid;
+  place-items:center;
+  transition:all .25s;
+}
+.cart-close:hover{
+  background:rgba(255,255,255,.35);
+  transform:rotate(90deg);
+}
+
+.cart-body{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+}
+.cart-body::-webkit-scrollbar{width:5px}
+.cart-body::-webkit-scrollbar-thumb{background:var(--gray-3);border-radius:5px}
+
+.cart-empty{
+  text-align:center;
+  padding:70px 20px;
+  color:var(--gray);
+}
+.cart-empty .icon{
+  font-size:70px;
+  margin-bottom:16px;
+  opacity:.4;
+}
+.cart-empty h3{
+  font-size:16px;
+  color:var(--dark);
+  margin-bottom:6px;
+  font-weight:800;
+}
+.cart-empty p{font-size:12.5px;margin-bottom:20px}
+.cart-empty button{
+  background:var(--primary);
+  color:#fff;
+  padding:10px 22px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:12.5px;
+}
+
+.cart-item{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  background:var(--light);
+  border-radius:14px;
+  margin-bottom:10px;
+  align-items:center;
+  border:1px solid transparent;
+  transition:all .25s;
+}
+.cart-item:hover{border-color:var(--primary-light)}
+.cart-item-img{
+  width:60px;height:60px;
+  background:linear-gradient(135deg,var(--primary-soft),var(--primary-light));
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  flex-shrink:0;
+}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{
+  font-size:13px;
+  font-weight:800;
+  color:var(--dark);
+  margin-bottom:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cart-item-price{
+  font-size:12px;
+  color:var(--primary-deep);
+  font-weight:800;
+}
+.cart-item-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:6px;
+}
+.qty-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:var(--white);
+  border-radius:9px;
+  padding:3px;
+  border:1px solid var(--gray-3);
+}
+.qty-btn{
+  width:26px;height:26px;
+  border-radius:7px;
+  background:transparent;
+  color:var(--primary-deep);
+  font-weight:900;
+  font-size:14px;
+  display:grid;
+  place-items:center;
+  transition:all .2s;
+}
+.qty-btn:hover{background:var(--primary-light)}
+.qty-num{
+  min-width:22px;
+  text-align:center;
+  font-size:12.5px;
+  font-weight:800;
+}
+.remove-item{
+  width:30px;height:30px;
+  border-radius:8px;
+  background:#fee2e2;
+  color:var(--danger);
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  transition:all .2s;
+}
+.remove-item:hover{
+  background:var(--danger);
+  color:#fff;
+}
+
+.cart-foot{
+  padding:20px 22px;
+  border-top:1px solid var(--gray-3);
+  background:var(--white);
+  box-shadow:0 -8px 20px rgba(0,0,0,.04);
+}
+.cart-total-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+.cart-total-row .lbl{
+  font-size:13px;
+  color:var(--gray);
+  font-weight:700;
+}
+.cart-total-row .val{
+  font-size:20px;
+  font-weight:900;
+  color:var(--primary-deep);
+  display:flex;
+  align-items:baseline;
+  gap:4px;
+}
+.cart-total-row .val small{
+  font-size:11px;
+  font-weight:700;
+  color:var(--gray);
+}
+.cart-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}
+.checkout-btn{
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  padding:14px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:800;
+  transition:all .3s;
+  box-shadow:0 8px 20px rgba(16,185,129,.3);
+}
+.checkout-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 26px rgba(16,185,129,.4);
+}
+.continue-btn{
+  background:transparent;
+  color:var(--gray);
+  padding:10px;
+  font-size:12.5px;
+  font-weight:700;
+  border-radius:10px;
+  transition:all .2s;
+}
+.continue-btn:hover{color:var(--primary-deep);background:var(--primary-soft)}
+
+/* ============================================================
+   QUICK VIEW MODAL
+   ============================================================ */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:250;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal.open{display:flex}
+.modal-bg{
+  position:absolute;
+  inset:0;
+  background:rgba(15,23,42,.6);
+  backdrop-filter:blur(5px);
+  animation:fadeIn .25s;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-card{
+  position:relative;
+  background:var(--white);
+  border-radius:24px;
+  width:100%;
+  max-width:780px;
+  max-height:90vh;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  animation:modalIn .35s cubic-bezier(.4,0,.2,1);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(30px) scale(.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.modal-media{
+  background:linear-gradient(135deg,var(--primary-soft),var(--primary-light));
+  display:grid;
+  place-items:center;
+  padding:40px 20px;
+  position:relative;
+  overflow:hidden;
+}
+.modal-media::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.6),transparent 60%);
+  pointer-events:none;
+}
+.modal-emoji{
+  font-size:130px;
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 15px 30px rgba(5,150,105,.25));
+  animation:modalFloat 4s ease-in-out infinite;
+}
+@keyframes modalFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+.modal-body{
+  padding:28px;
+  overflow-y:auto;
+  max-height:90vh;
+}
+.modal-close{
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:38px;height:38px;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  z-index:5;
+  color:var(--gray);
+  box-shadow:var(--shadow-sm);
+  transition:all .25s;
+}
+.modal-close:hover{
+  background:var(--danger);
+  color:#fff;
+  transform:rotate(90deg);
+}
+.modal-cat{
+  display:inline-block;
+  font-size:11px;
+  font-weight:800;
+  color:var(--primary-deep);
+  background:var(--primary-light);
+  padding:4px 11px;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+.modal-body h2{
+  font-size:22px;
+  font-weight:900;
+  color:var(--dark);
+  line-height:1.4;
+  margin-bottom:12px;
+}
+.modal-rating{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12.5px;
+  color:var(--gray);
+  margin-bottom:16px;
+  font-weight:600;
+}
+.modal-rating .stars{
+  color:#fbbf24;
+  letter-spacing:-1px;
+  font-size:14px;
+}
+.modal-desc{
+  font-size:13px;
+  color:var(--gray);
+  line-height:1.9;
+  margin-bottom:20px;
+  padding-bottom:20px;
+  border-bottom:1px dashed var(--gray-3);
+}
+.modal-features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:20px;
+}
+.modal-feature{
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--primary-deep);
+  background:var(--primary-soft);
+  padding:6px 12px;
+  border-radius:9px;
+  border:1px solid var(--primary-light);
+}
+.modal-price-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:16px;
+  padding-top:20px;
+  border-top:1px solid var(--gray-3);
+}
+.modal-price{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.modal-price .old{
+  font-size:13px;
+  color:var(--gray-2);
+  text-decoration:line-through;
+  font-weight:600;
+}
+.modal-price .new{
+  font-size:26px;
+  font-weight:900;
+  color:var(--dark);
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+  letter-spacing:-.5px;
+}
+.modal-price .new small{
+  font-size:12px;
+  font-weight:700;
+  color:var(--gray);
+}
+.modal-add{
+  background:linear-gradient(135deg,var(--primary),var(--primary-deep));
+  color:#fff;
+  padding:14px 26px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  box-shadow:0 10px 22px rgba(16,185,129,.3);
+  transition:all .3s;
+}
+.modal-add:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(16,185,129,.45);
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast-wrap{
+  position:fixed;
+  bottom:28px;
+  left:28px;
+  z-index:300;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  pointer-events:none;
+}
+.toast{
+  background:var(--dark);
+  color:#fff;
+  padding:14px 20px;
+  border-radius:14px;
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:var(--shadow-lg);
+  animation:toastIn .4s cubic-bezier(.4,0,.2,1);
+  pointer-events:auto;
+  min-width:260px;
+  max-width:380px;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(-30px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.toast.out{
+  animation:toastOut .3s forwards;
+}
+@keyframes toastOut{
+  to{opacity:0;transform:translateX(-30px)}
+}
+.toast-ic{
+  width:28px;height:28px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  font-weight:900;
+  flex-shrink:0;
+}
+.toast.success{background:linear-gradient(135deg,var(--primary),var(--primary-deep))}
+.toast.success .toast-ic{background:rgba(255,255,255,.2)}
+.toast.error{background:linear-gradient(135deg,#dc2626,#991b1b)}
+.toast.error .toast-ic{background:rgba(255,255,255,.2)}
+.toast.info{background:linear-gradient(135deg,var(--dark),var(--dark-2))}
+.toast.info .toast-ic{background:rgba(255,255,255,.15)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  background:var(--dark);
+  color:rgba(255,255,255,.7);
+  padding:50px 28px 32px;
+}
+.footer-inner{
+  max-width:1320px;
+  margin:auto;
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr repeat(3,1fr);
+  gap:40px;
+  padding-bottom:36px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#fff;
+  font-weight:900;
+  font-size:17px;
+  margin-bottom:14px;
+}
+.footer-brand .logo-mark{
+  width:42px;height:42px;
+  font-size:20px;
+}
+.footer-col h4{
+  font-size:14px;
+  color:#fff;
+  margin-bottom:14px;
+  font-weight:800;
+}
+.footer-col ul{list-style:none}
+.footer-col li{
+  font-size:12.5px;
+  padding:5px 0;
+  cursor:pointer;
+  transition:color .2s;
+  color:rgba(255,255,255,.6);
+}
+.footer-col li:hover{color:var(--primary)}
+.footer-desc{
+  font-size:12.5px;
+  line-height:1.9;
+  color:rgba(255,255,255,.6);
+  max-width:320px;
+}
+.footer-bottom{
+  padding-top:24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:rgba(255,255,255,.5);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1000px){
+  .header-inner{padding:12px 16px;gap:14px}
+  .logo-text{display:none}
+  .search-box{max-width:none}
+  .cart-btn span:not(.count){display:none}
+  .cart-btn{padding:12px 14px}
+  .main-layout{
+    grid-template-columns:1fr;
+    padding:20px 16px 100px;
+    gap:20px;
+  }
+  .filter-toggle{display:flex}
+  .sidebar{
+    position:fixed;
+    top:0;right:0;
+    width:320px;
+    max-width:88%;
+    height:100vh;
+    background:var(--white);
+    z-index:210;
+    padding:20px;
+    transform:translateX(100%);
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+    overflow-y:auto;
+    box-shadow:-20px 0 60px rgba(0,0,0,.2);
+    max-height:100vh;
+  }
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-head-mobile{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--gray-3);
+  }
+  .sidebar-head-mobile h3{
+    font-size:16px;
+    font-weight:900;
+    color:var(--dark);
+  }
+  .sidebar-close{
+    width:36px;height:36px;
+    background:var(--light);
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+    font-size:16px;
+    color:var(--gray);
+  }
+  .toolbar{padding:20px 16px 0}
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .modal-card{grid-template-columns:1fr;max-width:480px}
+  .modal-media{padding:30px 20px}
+  .modal-emoji{font-size:90px}
+  .modal-body{padding:22px;max-height:50vh}
+  .modal-close{top:10px;left:10px}
+}
+@media(max-width:640px){
+  .top-strip{font-size:11px;padding:8px 12px}
+  .header-inner{padding:10px 12px;gap:8px}
+  .logo-mark{width:40px;height:40px;font-size:19px}
+  .search-box input{padding:10px 42px 10px 14px;font-size:12.5px}
+  .icon-btn{width:40px;height:40px;font-size:16px}
+  .hero{padding:50px 16px 60px}
+  .hero h1{font-size:28px}
+  .hero p{font-size:13.5px}
+  .hero-feature{font-size:11px;padding:7px 13px}
+  .products-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .product-media{height:130px;font-size:52px}
+  .product-body{padding:12px}
+  .product-name{font-size:12px;min-height:36px}
+  .product-cat{font-size:9px;padding:2px 7px}
+  .product-rating{font-size:10px;margin-bottom:8px}
+  .product-rating .stars{font-size:11px}
+  .price-new{font-size:14px}
+  .price-old{font-size:9.5px}
+  .add-btn{width:38px;height:38px;font-size:18px}
+  .badge{font-size:9px;padding:3px 8px}
+  .product-quick{opacity:1;transform:none}
+  .quick-btn{width:30px;height:30px;font-size:13px}
+  .cart-drawer{width:100%}
+  .toast-wrap{left:12px;right:12px;bottom:16px}
+  .toast{min-width:auto;width:100%}
+  .footer-top{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .products-head-left h2{font-size:18px}
+  .products-head-left p{font-size:11.5px}
+  .sort-select select{min-width:auto;padding:9px 34px 9px 12px;font-size:11.5px}
+  .filter-toggle{padding:9px 14px;font-size:11.5px}
+  .cat-btn{padding:8px 14px;font-size:11.5px}
+}
+@media(max-width:380px){
+  .products-grid{grid-template-columns:1fr}
+  .hero h1{font-size:24px}
+  .hero-features{gap:6px}
+  .hero-feature{font-size:10px;padding:6px 10px}
+}
+
+/* ============================================================
+   MOBILE NAV
+   ============================================================ */
+.mobile-nav{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--gray-3);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  z-index:99;
+}
+.mobile-nav-inner{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+  max-width:520px;
+  margin:auto;
+}
+.mobile-nav a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  padding:8px 4px;
+  border-radius:11px;
+  color:var(--gray);
+  font-size:10px;
+  font-weight:700;
+  transition:all .25s;
+  position:relative;
+}
+.mobile-nav a b{
+  font-size:19px;
+  font-weight:400;
+  line-height:1;
+}
+.mobile-nav a.active{
+  color:var(--primary-deep);
+  background:var(--primary-soft);
+}
+.mobile-nav a .nav-badge{
+  position:absolute;
+  top:4px;left:calc(50% + 8px);
+  min-width:16px;height:16px;
+  padding:0 4px;
+  background:var(--danger);
+  color:#fff;
+  border-radius:8px;
+  font-size:9px;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--white);
+}
+.mobile-nav a .nav-badge.hidden{display:none}
+@media(max-width:1000px){
+  .mobile-nav{display:block}
+  body{padding-bottom:75px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOP STRIP
+     ============================================================ -->
+<div class="top-strip">
+  🎉 ارسال رایگان برای سفارش‌های بالای ۵۰۰,۰۰۰ تومان | تخفیف ویژه اعضای تعاونی
+</div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">🏪</span>
+      <span class="logo-text">
+        <strong>تعاونی مارکت</strong>
+        <small>TAAVONI MARKET</small>
+      </span>
+    </a>
+
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="جستجوی محصول، دسته‌بندی..." autocomplete="off">
+      <div class="search-suggest" id="searchSuggest"></div>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleWishlist()" title="علاقه‌مندی‌ها">
+        ❤️
+        <span class="dot hidden" id="wishDot">0</span>
+      </button>
+      <button class="icon-btn" onclick="showCompare()" title="مقایسه">
+        ⚖️
+        <span class="dot hidden" id="compareDot">0</span>
+      </button>
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 <span>سبد خرید</span>
+        <span class="count" id="cartCount">۰</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      فروشگاه اختصاصی اعضای تعاونی
+    </div>
+    <h1>خرید <em>هوشمندانه</em><br>با قیمت ویژه اعضا</h1>
+    <p>از سبدهای آماده مصرف خانوار تا خرید اقساطی — همه چیز در یک تجربه ساده، امن و به‌صرفه برای اعضای تعاونی.</p>
+    <div class="hero-features">
+      <span class="hero-feature">ارسال سریع</span>
+      <span class="hero-feature">ضمانت اصالت</span>
+      <span class="hero-feature">پرداخت امن</span>
+      <span class="hero-feature">پشتیبانی ۲۴/۷</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TOOLBAR (Categories + Sort)
+     ============================================================ -->
+<div class="toolbar">
+  <div class="categories" id="categories"></div>
+  <button class="filter-toggle" id="filterToggle" onclick="toggleSidebar()">
+    <span>⚙️</span> فیلتر
+    <span class="active-dot"></span>
+  </button>
+  <div class="sort-select">
+    <select id="sortSelect">
+      <option value="default">مرتب‌سازی: پیش‌فرض</option>
+      <option value="cheap">ارزان‌ترین</option>
+      <option value="expensive">گران‌ترین</option>
+      <option value="popular">محبوب‌ترین</option>
+      <option value="discount">بیشترین تخفیف</option>
+    </select>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN LAYOUT
+     ============================================================ -->
+<div class="main-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head-mobile">
+      <h3>⚙️ فیلترها</h3>
+      <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+    </div>
+
+    <!-- Categories filter -->
+    <div class="filter-box">
+      <h3><span class="ic">▤</span> دسته‌بندی</h3>
+      <div class="filter-list" id="sideCategories"></div>
+    </div>
+
+    <!-- Price -->
+    <div class="filter-box">
+      <h3><span class="ic">💰</span> محدوده قیمت (تومان)</h3>
+      <div class="price-range">
+        <input type="number" id="minPrice" placeholder="از" min="0">
+        <span>—</span>
+        <input type="number" id="maxPrice" placeholder="تا" min="0">
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="filter-box">
+      <h3><span class="ic">✨</span> گزینه‌ها</h3>
+      <label class="check-item">
+        <input type="checkbox" id="onlyDiscount">
+        <span class="check-box">✓</span>
+        فقط محصولات تخفیف‌دار
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="onlyInstallment">
+        <span class="check-box">✓</span>
+        امکان خرید اقساطی
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="onlyPopular">
+        <span class="check-box">✓</span>
+        فقط پرفروش‌ها
+      </label>
+    </div>
+
+    <!-- Reset -->
+    <div class="filter-box" style="padding:14px">
+      <button onclick="resetFilters()" style="width:100%;padding:11px;background:var(--light);border-radius:11px;font-weight:800;font-size:12.5px;color:var(--gray);transition:all .2s" onmouseover="this.style.background='#fee2e2';this.style.color='#b91c1c'" onmouseout="this.style.background='var(--light)';this.style.color='var(--gray)'">
+        🔄 پاک کردن فیلترها
+      </button>
+    </div>
+  </aside>
+
+  <!-- PRODUCTS -->
+  <section class="products-area">
+    <div class="products-head">
+      <div class="products-head-left">
+        <h2>محصولات فروشگاه</h2>
+        <p><b id="productsCount">۰</b> محصول موجود</p>
+      </div>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+    <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+      <button class="load-more" onclick="loadMore()">
+        <span>نمایش محصولات بیشتر</span>
+        <span>↓</span>
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <span class="logo-mark">🏪</span>
+          <span>تعاونی مارکت</span>
+        </div>
+        <p class="footer-desc">فروشگاه اختصاصی تعاونی‌ها؛ خرید، اعتبار، اقساط و خدمات ویژه اعضا در یک بستر یکپارچه.</p>
+      </div>
+      <div class="footer-col">
+        <h4>دسترسی سریع</h4>
+        <ul>
+          <li>فروشگاه</li>
+          <li>سبد خرید</li>
+          <li>حساب من</li>
+          <li>سفارش‌های من</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدمات مشتریان</h4>
+        <ul>
+          <li>پیگیری سفارش</li>
+          <li>رهگیری مرسوله</li>
+          <li>سوالات متداول</li>
+          <li>تماس با ما</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ارتباط با ما</h4>
+        <ul>
+          <li>📞 ۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>✉️ info@taavoni.market</li>
+          <li>📍 تهران، ایران</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© ۱۴۰۵ TAAVONI MARKET — تمامی حقوق محفوظ است.</span>
+      <span>ساخته شده با 💚 برای اعضای تعاونی</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MOBILE NAV
+     ============================================================ -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html"><b>⌂</b><span>خانه</span></a>
+    <a href="store.html" class="active"><b>▱</b><span>فروشگاه</span></a>
+    <a href="cart.html"><b>🛒</b><span>سبد</span><span class="nav-badge hidden" id="mobileCartBadge">0</span></a>
+    <a href="account.html"><b>◎</b><span>حساب من</span></a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     CART DRAWER
+     ============================================================ -->
+<div class="overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h2>🛒 سبد خرید <span class="num" id="cartHeadCount">۰</span></h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total-row">
+      <span class="lbl">جمع کل</span>
+      <span class="val" id="cartTotal">۰ <small>تومان</small></span>
+    </div>
+    <div class="cart-actions">
+      <button class="checkout-btn" onclick="checkout()">💳 ادامه فرآیند خرید</button>
+      <button class="continue-btn" onclick="toggleCart()">ادامه خرید</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     QUICK VIEW MODAL
+     ============================================================ -->
+<div class="modal" id="quickView">
+  <div class="modal-bg" onclick="closeQuickView()"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeQuickView()">✕</button>
+    <div class="modal-media">
+      <div class="modal-emoji" id="qvEmoji">🧺</div>
+    </div>
+    <div class="modal-body">
+      <span class="modal-cat" id="qvCat">دسته</span>
+      <h2 id="qvName">نام محصول</h2>
+      <div class="modal-rating">
+        <span class="stars" id="qvStars">★★★★★</span>
+        <span id="qvReviews">۴.۹ (۱۲۴ نظر)</span>
+      </div>
+      <p class="modal-desc" id="qvDesc">توضیحات محصول...</p>
+      <div class="modal-features" id="qvFeatures"></div>
+      <div class="modal-price-box">
+        <div class="modal-price">
+          <span class="old" id="qvOld" style="display:none"></span>
+          <span class="new" id="qvPrice">۰ <small>تومان</small></span>
+        </div>
+        <button class="modal-add" id="qvAddBtn">🛒 افزودن به سبد</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TOAST
+     ============================================================ -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================================================
+   PRODUCTS DATA
+   ============================================================ */
+const PRODUCTS = [
+  {
+    id:1, name:'سبد مصرف خانوار',
+    cat:'سبدهای تعاونی', catKey:'baskets',
+    emoji:'🧺', price:2480000, oldPrice:2980000,
+    rating:4.9, reviews:124, sold:340,
+    badges:['discount','member'],
+    discount:17, installment:207000,
+    desc:'سبد کامل کالاهای ضروری ماهانه خانوار شامل برنج، روغن، چای، قند، حبوبات و اقلام پرمصرف دیگر.',
+    features:['ارسال رایگان','قیمت ویژه اعضا','ضمانت اصالت','اقساط ماهانه']
+  },
+  {
+    id:2, name:'بسته خرید روزانه',
+    cat:'مواد غذایی', catKey:'food',
+    emoji:'🥗', price:1320000, oldPrice:0,
+    rating:4.7, reviews:89, sold:210,
+    badges:['new'],
+    discount:0, installment:110000,
+    desc:'ترکیب محصولات تازه و پرمصرف روزانه؛ مناسب خرید هفتگی با تحویل سریع.',
+    features:['تحویل سریع','تازه و باکیفیت','اقساط ماهانه']
+  },
+  {
+    id:3, name:'بسته خانه و خانواده',
+    cat:'خانه و آشپزخانه', catKey:'home',
+    emoji:'🏠', price:3750000, oldPrice:4200000,
+    rating:4.8, reviews:156, sold:280,
+    badges:['discount'],
+    discount:11, installment:312000,
+    desc:'اقلام ضروری خانه و آشپزخانه برای یک فصل کامل؛ شامل مواد شوینده، دستمال، ظروف و لوازم مصرفی.',
+    features:['تخفیف اعضا','ارسال تعاونی','اقساط ماهانه']
+  },
+  {
+    id:4, name:'سبد مواد غذایی پایه',
+    cat:'مواد غذایی', catKey:'food',
+    emoji:'🍚', price:1800000, oldPrice:2100000,
+    rating:4.9, reviews:210, sold:520,
+    badges:['hot','discount'],
+    discount:14, installment:150000,
+    desc:'برنج، روغن، چای و اقلام اساسی؛ انتخاب محبوب اعضای تعاونی.',
+    features:['پرفروش','قیمت ویژه','اقساط ماهانه']
+  },
+  {
+    id:5, name:'سبد بهداشتی خانواده',
+    cat:'بهداشت و سلامت', catKey:'health',
+    emoji:'🧴', price:950000, oldPrice:0,
+    rating:4.6, reviews:67, sold:130,
+    badges:[],
+    discount:0, installment:95000,
+    desc:'شامپو، صابون، خمیردندان و لوازم بهداشتی معتبر برای کل خانواده.',
+    features:['برندهای معتبر','اصالت کالا','اقساط ماهانه']
+  },
+  {
+    id:6, name:'بسته خدمات ویژه اعضا',
+    cat:'خدمات اعضا', catKey:'services',
+    emoji:'🎁', price:1620000, oldPrice:1800000,
+    rating:4.9, reviews:45, sold:75,
+    badges:['discount','member'],
+    discount:10, installment:180000,
+    desc:'خدمات اختصاصی و پشتیبانی ویژه اعضای فعال تعاونی.',
+    features:['مخصوص اعضا','پشتیبانی ویژه','اقساط ماهانه']
+  },
+  {
+    id:7, name:'سبد صبحانه کامل',
+    cat:'مواد غذایی', catKey:'food',
+    emoji:'🥐', price:680000, oldPrice:0,
+    rating:4.7, reviews:98, sold:190,
+    badges:['new'],
+    discount:0, installment:57000,
+    desc:'ترکیب متنوعی از اقلام صبحانه شامل پنیر، کره، عسل، نان و چای.',
+    features:['ترکیب متنوع','کیفیت بالا','اقساط ماهانه']
+  },
+  {
+    id:8, name:'بسته لبنیات تازه',
+    cat:'لبنیات', catKey:'dairy',
+    emoji:'🥛', price:420000, oldPrice:480000,
+    rating:4.8, reviews:132, sold:310,
+    badges:['discount'],
+    discount:12, installment:35000,
+    desc:'شیر، ماست، پنیر و کره تازه با کیفیت ممتاز؛ تحویل روزانه.',
+    features:['تازه روزانه','کیفیت ممتاز','اقساط ماهانه']
+  },
+  {
+    id:9, name:'بسته آشپزخانه هوشمند',
+    cat:'خانه و آشپزخانه', catKey:'home',
+    emoji:'🍳', price:2150000, oldPrice:2450000,
+    rating:4.7, reviews:78, sold:95,
+    badges:['hot'],
+    discount:12, installment:180000,
+    desc:'مجموعه‌ای از ظروف و لوازم کاربردی آشپزخانه با طراحی مدرن.',
+    features:['طراحی مدرن','کیفیت بالا','اقساط ماهانه']
+  },
+  {
+    id:10, name:'سبد نوشیدنی خانواده',
+    cat:'نوشیدنی', catKey:'drink',
+    emoji:'🥤', price:580000, oldPrice:0,
+    rating:4.5, reviews:56, sold:145,
+    badges:[],
+    discount:0, installment:49000,
+    desc:'ترکیبی از نوشیدنی‌های پرمصرف خانواده شامل آب معدنی، آبمیوه و نوشابه.',
+    features:['تنوع بالا','کیفیت تضمینی','اقساط ماهانه']
+  },
+  {
+    id:11, name:'سبد میوه و سبزیجات',
+    cat:'مواد غذایی', catKey:'food',
+    emoji:'🍎', price:890000, oldPrice:1050000,
+    rating:4.8, reviews:187, sold:420,
+    badges:['discount','hot'],
+    discount:15, installment:74000,
+    desc:'میوه و سبزیجات تازه فصل با کیفیت ممتاز و تحویل روزانه.',
+    features:['تازه روزانه','کیفیت ممتاز','ارسال سریع']
+  },
+  {
+    id:12, name:'بسته مراقبت پوست',
+    cat:'بهداشت و سلامت', catKey:'health',
+    emoji:'✨', price:1250000, oldPrice:1450000,
+    rating:4.6, reviews:92, sold:115,
+    badges:['discount'],
+    discount:14, installment:105000,
+    desc:'محصولات مراقبت از پوست و زیبایی از برندهای معتبر داخلی.',
+    features:['برندهای معتبر','مناسب همه پوست‌ها','اقساط ماهانه']
+  },
+  {
+    id:13, name:'سبد شیرینی و تنقلات',
+    cat:'مواد غذایی', catKey:'food',
+    emoji:'🍪', price:740000, oldPrice:0,
+    rating:4.7, reviews:110, sold:230,
+    badges:['new'],
+    discount:0, installment:62000,
+    desc:'مجموعه‌ای متنوع از شیرینی، بیسکویت، شکلات و تنقلات پرمصرف.',
+    features:['تنوع بالا','کیفیت بالا','اقساط ماهانه']
+  },
+  {
+    id:14, name:'بسته لوازم برقی کوچک',
+    cat:'خانه و آشپزخانه', catKey:'home',
+    emoji:'⚡', price:4580000, oldPrice:5200000,
+    rating:4.9, reviews:64, sold:55,
+    badges:['hot'],
+    discount:12, installment:382000,
+    desc:'لوازم برقی کوچک کاربردی برای منزل با گارانتی معتبر.',
+    features:['گارانتی معتبر','کیفیت ساخت بالا','اقساط ماهانه']
+  },
+  {
+    id:15, name:'سبد مصرف فصل پاییز',
+    cat:'سبدهای تعاونی', catKey:'baskets',
+    emoji:'🍁', price:2980000, oldPrice:3400000,
+    rating:4.8, reviews:73, sold:88,
+    badges:['discount','member'],
+    discount:12, installment:249000,
+    desc:'سبد ویژه فصل پاییز با اقلام پرمصرف و قیمت اقتصادی برای اعضا.',
+    features:['قیمت ویژه اعضا','ارسال رایگان','اقساط ماهانه']
+  },
+  {
+    id:16, name:'بسته پوشاک خانگی',
+    cat:'خانه و آشپزخانه', catKey:'home',
+    emoji:'👕', price:1350000, oldPrice:0,
+    rating:4.5, reviews:48, sold:70,
+    badges:[],
+    discount:0, installment:113000,
+    desc:'پوشاک راحت و باکیفیت خانگی مناسب همه اعضای خانواده.',
+    features:['جنس باکیفیت','راحت و سبک','اقساط ماهانه']
+  }
+];
+
+/* ============================================================
+   CATEGORIES DATA
+   ============================================================ */
+const CATEGORIES = [
+  {id:'all', name:'همه محصولات', emoji:'✨'},
+  {id:'baskets', name:'سبدهای تعاونی', emoji:'🧺'},
+  {id:'food', name:'مواد غذایی', emoji:'🍚'},
+  {id:'dairy', name:'لبنیات', emoji:'🥛'},
+  {id:'drink', name:'نوشیدنی', emoji:'🥤'},
+  {id:'home', name:'خانه و آشپزخانه', emoji:'🏠'},
+  {id:'health', name:'بهداشت و سلامت', emoji:'🧴'},
+  {id:'services', name:'خدمات اعضا', emoji:'🎁'}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  category:'all',
+  search:'',
+  sort:'default',
+  minPrice:null,
+  maxPrice:null,
+  onlyDiscount:false,
+  onlyInstallment:false,
+  onlyPopular:false,
+  page:1,
+  perPage:8
+};
+let cart = JSON.parse(localStorage.getItem('taavoni_cart_v2') || '[]');
+let wishlist = JSON.parse(localStorage.getItem('taavoni_wishlist') || '[]');
+let compareList = JSON.parse(localStorage.getItem('taavoni_compare') || '[]');
+let currentModalProduct = null;
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const faNum = (n) => Number(n).toLocaleString('fa-IR');
+const $ = (id) => document.getElementById(id);
+
+/* ============================================================
+   RENDER CATEGORIES
+   ============================================================ */
+function renderCategories() {
+  const scroll = $('categories');
+  const sidebar = $('sideCategories');
+  
+  // Top pills
+  scroll.innerHTML = CATEGORIES.map(c => {
+    const count = c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter(p => p.catKey === c.id).length;
+    return `
+      <button class="cat-btn ${state.category === c.id ? 'active' : ''}" onclick="setCategory('${c.id}')">
+        <span>${c.emoji}</span>
+        <span>${c.name}</span>
+        <span class="cat-count">${faNum(count)}</span>
+      </button>
+    `;
+  }).join('');
+  
+  // Sidebar list
+  sidebar.innerHTML = CATEGORIES.map(c => {
+    const count = c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter(p => p.catKey === c.id).length;
+    return `
+      <div class="filter-item ${state.category === c.id ? 'active' : ''}" onclick="setCategory('${c.id}')">
+        <span>${c.name}</span>
+        <span class="fc">${faNum(count)}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function setCategory(id) {
+  state.category = id;
+  state.page = 1;
+  renderCategories();
+  renderProducts();
+  // close sidebar on mobile
+  if (window.innerWidth <= 1000) toggleSidebar();
+}
+
+/* ============================================================
+   FILTER & SORT
+   ============================================================ */
+function getFilteredProducts() {
+  let list = [...PRODUCTS];
+  
+  // Category
+  if (state.category !== 'all') {
+    list = list.filter(p => p.catKey === state.category);
+  }
+  
+  // Search
+  if (state.search) {
+    const q = state.search.toLowerCase().trim();
+    list = list.filter(p => 
+      p.name.toLowerCase().includes(q) || 
+      p.cat.toLowerCase().includes(q)
+    );
+  }
+  
+  // Price
+  if (state.minPrice !== null) {
+    list = list.filter(p => p.price >= state.minPrice);
+  }
+  if (state.maxPrice !== null) {
+    list = list.filter(p => p.price <= state.maxPrice);
+  }
+  
+  // Options
+  if (state.onlyDiscount) {
+    list = list.filter(p => p.oldPrice > p.price);
+  }
+  if (state.onlyInstallment) {
+    list = list.filter(p => p.installment > 0);
+  }
+  if (state.onlyPopular) {
+    list = list.filter(p => p.sold >= 200);
+  }
+  
+  // Sort
+  switch(state.sort) {
+    case 'cheap':
+      list.sort((a,b) => a.price - b.price);
+      break;
+    case 'expensive':
+      list.sort((a,b) => b.price - a.price);
+      break;
+    case 'popular':
+      list.sort((a,b) => b.sold - a.sold);
+      break;
+    case 'discount':
+      list.sort((a,b) => b.discount - a.discount);
+      break;
+  }
+  
+  return list;
+}
+
+/* ============================================================
+   RENDER PRODUCTS
+   ============================================================ */
+function renderProducts() {
+  const filtered = getFilteredProducts();
+  const total = filtered.length;
+  const shown = filtered.slice(0, state.page * state.perPage);
+  const grid = $('productsGrid');
+  
+  $('productsCount').textContent = faNum(total);
+  
+  if (total === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🔍</div>
+        <h3>محصولی یافت نشد</h3>
+        <p>با تغییر فیلترها یا جستجوی دیگر، مجدداً تلاش کنید.</p>
+        <button onclick="resetFilters()">پاک کردن فیلترها</button>
+      </div>
+    `;
+    $('loadMoreWrap').style.display = 'none';
+    return;
+  }
+  
+  grid.innerHTML = shown.map((p, i) => renderCard(p, i)).join('');
+  
+  // Load more
+  if (shown.length < total) {
+    $('loadMoreWrap').style.display = 'block';
+  } else {
+    $('loadMoreWrap').style.display = 'none';
+  }
+}
+
+function renderCard(p, index) {
+  const badgesHTML = p.badges.map(b => {
+    const labels = {
+      discount: `${p.discount}٪`,
+      new: 'جدید',
+      hot: 'پرفروش',
+      member: '⭐ ویژه'
+    };
+    return `<span class="badge ${b}">${labels[b]}</span>`;
+  }).join('');
+  
+  const isWished = wishlist.includes(p.id);
+  
+  return `
+    <article class="product" style="animation-delay:${index * 60}ms">
+      <div class="product-media">
+        <div class="product-badges">${badgesHTML}</div>
+        <div class="product-quick">
+          <button class="quick-btn ${isWished ? 'active' : ''}" onclick="toggleWish(event, ${p.id})" title="علاقه‌مندی">
+            ${isWished ? '❤️' : '🤍'}
+          </button>
+          <button class="quick-btn" onclick="openQuickView(${p.id})" title="مشاهده سریع">
+            👁
+          </button>
+          <button class="quick-btn" onclick="toggleCompare(event, ${p.id})" title="مقایسه">
+            ⚖️
+          </button>
+        </div>
+        <span class="emoji">${p.emoji}</span>
+      </div>
+      <div class="product-body">
+        <span class="product-cat">${p.cat}</span>
+        <h3 class="product-name">${p.name}</h3>
+        <div class="product-rating">
+          <span class="stars">★★★★★</span>
+          <span>${p.rating.toLocaleString('fa-IR')} (${faNum(p.reviews)})</span>
+        </div>
+        <div class="product-foot">
+          <div class="price-block">
+            ${p.oldPrice > 0 ? `<span class="price-old">${faNum(p.oldPrice)}</span>` : ''}
+            <span class="price-new">${faNum(p.price)} <small>تومان</small></span>
+          </div>
+          <button class="add-btn" onclick="addToCart(${p.id})" title="افزودن به سبد">+</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+/* ============================================================
+   LOAD MORE
+   ============================================================ */
+function loadMore() {
+  state.page++;
+  renderProducts();
+}
+
+/* ============================================================
+   FILTERS
+   ============================================================ */
+function applyFilters() {
+  state.minPrice = $('minPrice').value ? parseInt($('minPrice').value) : null;
+  state.maxPrice = $('maxPrice').value ? parseInt($('maxPrice').value) : null;
+  state.onlyDiscount = $('onlyDiscount').checked;
+  state.onlyInstallment = $('onlyInstallment').checked;
+  state.onlyPopular = $('onlyPopular').checked;
+  state.page = 1;
+  
+  const hasFilter = state.minPrice || state.maxPrice || 
+                   state.onlyDiscount || state.onlyInstallment || state.onlyPopular;
+  $('filterToggle').classList.toggle('has-filter', !!hasFilter);
+  
+  renderProducts();
+}
+
+function resetFilters() {
+  $('minPrice').value = '';
+  $('maxPrice').value = '';
+  $('onlyDiscount').checked = false;
+  $('onlyInstallment').checked = false;
+  $('onlyPopular').checked = false;
+  state.category = 'all';
+  state.search = '';
+  state.sort = 'default';
+  state.minPrice = null;
+  state.maxPrice = null;
+  state.onlyDiscount = false;
+  state.onlyInstallment = false;
+  state.onlyPopular = false;
+  state.page = 1;
+  
+  $('searchInput').value = '';
+  $('sortSelect').value = 'default';
+  $('filterToggle').classList.remove('has-filter');
+  
+  renderCategories();
+  renderProducts();
+  showToast('فیلترها پاک شد', 'info');
+}
+
+/* ============================================================
+   SIDEBAR TOGGLE (mobile)
+   ============================================================ */
+function toggleSidebar() {
+  const sb = $('sidebar');
+  const ov = $('cartOverlay');
+  const isOpen = sb.classList.contains('open');
+  
+  if (isOpen) {
+    sb.classList.remove('open');
+    if (!ov.classList.contains('__fromCart')) ov.classList.remove('open');
+  } else {
+    sb.classList.add('open');
+    ov.classList.add('open');
+  }
+}
+
+/* ============================================================
+   CART
+   ============================================================ */
+function addToCart(id) {
+  const product = PRODUCTS.find(p => p.id === id);
+  if (!product) return;
+  
+  const existing = cart.find(i => i.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      emoji: product.emoji,
+      qty: 1
+    });
+  }
+  
+  saveCart();
+  updateCartUI();
+  showToast(`${product.name} به سبد اضافه شد`, 'success');
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== id);
+  }
+  saveCart();
+  updateCartUI();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  saveCart();
+  updateCartUI();
+  showToast('محصول از سبد حذف شد', 'info');
+}
+
+function saveCart() {
+  localStorage.setItem('taavoni_cart_v2', JSON.stringify(cart));
+}
+
+function updateCartUI() {
+  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  
+  // Header count
+  $('cartCount').textContent = faNum(totalItems);
+  $('cartHeadCount').textContent = faNum(totalItems);
+  
+  // Mobile badge
+  const mobileBadge = $('mobileCartBadge');
+  mobileBadge.textContent = faNum(totalItems);
+  mobileBadge.classList.toggle('hidden', totalItems === 0);
+  
+  // Cart body
+  const body = $('cartBody');
+  const foot = $('cartFoot');
+  
+  if (cart.length === 0) {
+    body.innerHTML = `
+      <div class="cart-empty">
+        <div class="icon">🛒</div>
+        <h3>سبد خرید شما خالی است</h3>
+        <p>محصولی را به سبد اضافه کنید تا اینجا نمایش داده شود.</p>
+        <button onclick="toggleCart()">شروع خرید</button>
+      </div>
+    `;
+    foot.style.display = 'none';
+    return;
+  }
+  
+  body.innerHTML = cart.map(i => `
+    <div class="cart-item">
+      <div class="cart-item-img">${i.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">${faNum(i.price * i.qty)} تومان</div>
+        <div class="cart-item-actions">
+          <div class="qty-group">
+            <button class="qty-btn" onclick="changeQty(${i.id}, 1)">+</button>
+            <span class="qty-num">${faNum(i.qty)}</span>
+            <button class="qty-btn" onclick="changeQty(${i.id}, -1)">−</button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart(${i.id})">🗑</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  foot.style.display = 'block';
+  $('cartTotal').innerHTML = `${faNum(totalPrice)} <small>تومان</small>`;
+}
+
+function toggleCart() {
+  $('cartDrawer').classList.toggle('open');
+  $('cartOverlay').classList.toggle('open');
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    showToast('سبد خرید شما خالی است', 'error');
+    return;
+  }
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  showToast(`سفارش شما به مبلغ ${faNum(total)} تومان آماده ثبت است`, 'success');
+  // Simulate redirect
+  setTimeout(() => {
+    showToast('در حال انتقال به صفحه پرداخت...', 'info');
+  }, 1500);
+}
+
+/* ============================================================
+   WISHLIST
+   ============================================================ */
+function toggleWish(event, id) {
+  if (event) event.stopPropagation();
+  const idx = wishlist.indexOf(id);
+  if (idx > -1) {
+    wishlist.splice(idx, 1);
+    showToast('از علاقه‌مندی‌ها حذف شد', 'info');
+  } else {
+    wishlist.push(id);
+    showToast('به علاقه‌مندی‌ها اضافه شد ❤️', 'success');
+  }
+  localStorage.setItem('taavoni_wishlist', JSON.stringify(wishlist));
+  updateWishUI();
+  renderProducts();
+}
+
+function updateWishUI() {
+  const dot = $('wishDot');
+  dot.textContent = faNum(wishlist.length);
+  dot.classList.toggle('hidden', wishlist.length === 0);
+}
+
+function toggleWishlist() {
+  if (wishlist.length === 0) {
+    showToast('لیست علاقه‌مندی‌های شما خالی است', 'info');
+    return;
+  }
+  showToast(`${faNum(wishlist.length)} محصول در علاقه‌مندی‌های شما`, 'info');
+}
+
+/* ============================================================
+   COMPARE
+   ============================================================ */
+function toggleCompare(event, id) {
+  if (event) event.stopPropagation();
+  const idx = compareList.indexOf(id);
+  if (idx > -1) {
+    compareList.splice(idx, 1);
+    showToast('از لیست مقایسه حذف شد', 'info');
+  } else {
+    if (compareList.length >= 3) {
+      showToast('حداکثر ۳ محصول قابل مقایسه است', 'error');
+      return;
+    }
+    compareList.push(id);
+    showToast('به لیست مقایسه اضافه شد ⚖️', 'success');
+  }
+  localStorage.setItem('taavoni_compare', JSON.stringify(compareList));
+  updateCompareUI();
+}
+
+function updateCompareUI() {
+  const dot = $('compareDot');
+  dot.textContent = faNum(compareList.length);
+  dot.classList.toggle('hidden', compareList.length === 0);
+}
+
+function showCompare() {
+  if (compareList.length < 2) {
+    showToast('حداقل ۲ محصول برای مقایسه انتخاب کنید', 'info');
+    return;
+  }
+  showToast(`${faNum(compareList.length)} محصول آماده مقایسه`, 'success');
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+let searchTimer;
+$('searchInput').addEventListener('input', (e) => {
+  const val = e.target.value.trim();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    state.search = val;
+    state.page = 1;
+    renderProducts();
+    showSuggestions(val);
+  }, 200);
+});
+
+$('searchInput').addEventListener('focus', (e) => {
+  if (e.target.value.trim()) showSuggestions(e.target.value.trim());
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-box')) {
+    $('searchSuggest').classList.remove('show');
+  }
+});
+
+function showSuggestions(q) {
+  const suggest = $('searchSuggest');
+  if (!q) {
+    suggest.classList.remove('show');
+    return;
+  }
+  
+  const results = PRODUCTS.filter(p => 
+    p.name.toLowerCase().includes(q.toLowerCase()) ||
+    p.cat.toLowerCase().includes(q.toLowerCase())
+  ).slice(0, 6);
+  
+  if (results.length === 0) {
+    suggest.innerHTML = `<div class="suggest-empty">نتیجه‌ای برای «${q}» یافت نشد</div>`;
+  } else {
+    suggest.innerHTML = results.map(p => `
+      <div class="suggest-item" onclick="openQuickView(${p.id}); closeSuggest()">
+        <div class="suggest-emoji">${p.emoji}</div>
+        <div class="suggest-info">
+          <b>${p.name}</b>
+          <small>${p.cat}</small>
+        </div>
+        <div class="suggest-price">${faNum(p.price)}</div>
+      </div>
+    `).join('');
+  }
+  
+  suggest.classList.add('show');
+}
+
+function closeSuggest() {
+  $('searchSuggest').classList.remove('show');
+}
+
+/* ============================================================
+   QUICK VIEW MODAL
+   ============================================================ */
+function openQuickView(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  
+  currentModalProduct = p;
+  
+  $('qvEmoji').textContent = p.emoji;
+  $('qvCat').textContent = p.cat;
+  $('qvName').textContent = p.name;
+  $('qvReviews').textContent = `${p.rating.toLocaleString('fa-IR')} (${faNum(p.reviews)} نظر)`;
+  $('qvDesc').textContent = p.desc;
+  $('qvFeatures').innerHTML = p.features.map(f => 
+    `<span class="modal-feature">✓ ${f}</span>`
+  ).join('');
+  
+  const oldEl = $('qvOld');
+  if (p.oldPrice > 0) {
+    oldEl.textContent = faNum(p.oldPrice) + ' تومان';
+    oldEl.style.display = 'block';
+  } else {
+    oldEl.style.display = 'none';
+  }
+  $('qvPrice').innerHTML = `${faNum(p.price)} <small>تومان</small>`;
+  
+  $('qvAddBtn').onclick = () => {
+    addToCart(p.id);
+    closeQuickView();
+  };
+  
+  $('quickView').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuickView() {
+  $('quickView').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeQuickView();
+    if ($('cartDrawer').classList.contains('open')) toggleCart();
+    if ($('sidebar').classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(msg, type = 'success') {
+  const icons = {
+    success: '✓',
+    error: '✕',
+    info: 'ℹ'
+  };
+  
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `
+    <div class="toast-ic">${icons[type]}</div>
+    <div>${msg}</div>
+  `;
+  
+  $('toastWrap').appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('out');
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
+}
+
+/* ============================================================
+   EVENT LISTENERS
+   ============================================================ */
+$('sortSelect').addEventListener('change', (e) => {
+  state.sort = e.target.value;
+  state.page = 1;
+  renderProducts();
+});
+
+['minPrice', 'maxPrice'].forEach(id => {
+  $(id).addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applyFilters, 400);
+  });
+});
+
+['onlyDiscount', 'onlyInstallment', 'onlyPopular'].forEach(id => {
+  $(id).addEventListener('change', applyFilters);
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderCategories();
+renderProducts();
+updateCartUI();
+updateWishUI();
+updateCompareUI();
+</script>
+
+</body>
+</html>
