@@ -23,6 +23,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -R . _site
+          find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#</head>#<link rel="stylesheet" href="assets/css/brand-consistency.css"></head>#g'
           find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#</body>#<script src="assets/js/mobile-sheet.js"></script></body>#g'
           rm -rf _site/.git _site/.github
       - name: Configure Pages
