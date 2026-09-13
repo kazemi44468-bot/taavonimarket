@@ -1,0 +1,43 @@
+name: Canonicalize source files
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  canonicalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Canonicalize HTML assets
+        shell: bash
+        run: |
+          set -e
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('.')
+          for p in root.glob('*.html'):
+              text=p.read_text(encoding='utf-8')
+              if 'assets/css/site.css' not in text:
+                  text=text.replace('</head>','<link rel="stylesheet" href="assets/css/site.css"></head>',1)
+              if 'assets/css/mobile.css' not in text:
+                  text=text.replace('</head>','<link rel="stylesheet" href="assets/css/mobile.css"></head>',1)
+              if 'assets/js/site.js' not in text:
+                  text=text.replace('</body>','<script src="assets/js/site.js"></script></body>',1)
+              p.write_text(text,encoding='utf-8')
+          PY
+      - name: Commit canonical source
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          if git diff --cached --quiet; then
+            echo "Source is already canonical."
+            exit 0
+          fi
+          git commit -m "Canonicalize HTML source assets"
+          git push
