@@ -1,0 +1,35 @@
+name: Apply Taavoni Market navigation enhancement
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  apply:
+    if: github.event.head_commit.message != 'Enhance existing top navigation with cascading submenus'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update navigation
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('assets/js/site.js')
+          s=p.read_text(encoding='utf-8')
+          old="var nav=[['index.html','خانه'],['about.html','درباره ما'],['store.html','فروشگاه'],['account.html','حساب من']];"
+          new="var nav=[['index.html','خانه'],['about.html','درباره ما',[['orders.html','پیگیری سفارش'],['service.html','خدمات اعضا']]],['store.html','فروشگاه',[['special-plans.html','طرح‌های ویژه'],['cart.html','سبد خرید'],['service.html','خدمات اعضا']]],['account.html','حساب من',[['orders.html','سفارش‌های من'],['login.html','ورود به حساب'],['register.html','ثبت‌نام عضو']]]];"
+          if old not in s: raise SystemExit('navigation definition not found')
+          s=s.replace(old,new,1)
+          old_header="h.innerHTML='<div class=\"tm-head\"><a class=\"tm-brand\" href=\"index.html\"><span class=\"tm-logo\"><i></i><i></i><i></i></span><span><strong>تعاونی مارکت</strong><small>فروشگاه اختصاصی تعاونی</small></span></a><nav class=\"tm-nav\">'+nav.map(function(n){return '<a class=\"'+(active(n[0])?'active':'')+'\" href=\"'+n[0]+'\">'+n[1]+'</a>'}).join('')+'</nav>'
+          new_header="var ns=nav.map(function(n){var sub=n[2]||[];return '<div class=\"tm-nav-item'+(sub.length?' has-sub':'')+'\"><a class=\"'+(active(n[0])?'active':'')+'\" href=\"'+n[0]+'\">'+n[1]+(sub.length?'<span class=\"tm-nav-caret\">⌄</span>':'')+'</a>'+(sub.length?'<div class=\"tm-subnav\">'+sub.map(function(x){return '<a class=\"'+(active(x[0])?'active':'')+'\" href=\"'+x[0]+'\">'+x[1]+'</a>'}).join('')+'</div>':'')+'</div>'}).join('');var st=document.createElement('style');st.textContent='.tm-nav-item{position:relative;display:flex;align-items:center}.tm-nav-item>a{display:flex;align-items:center;gap:5px}.tm-nav-caret{font-size:10px;line-height:1;transition:transform .2s}.tm-nav-item:hover .tm-nav-caret,.tm-nav-item:focus-within .tm-nav-caret{transform:rotate(180deg)}.tm-subnav{position:absolute;right:0;top:calc(100% + 7px);min-width:180px;padding:7px;background:var(--tm-paper,#fffdfa);border:1px solid var(--tm-line,#e5ded2);border-radius:12px;box-shadow:0 16px 35px #17251f1a;opacity:0;visibility:hidden;transform:translateY(-5px);transition:.18s;z-index:1300}.tm-nav-item:hover .tm-subnav,.tm-nav-item:focus-within .tm-subnav{opacity:1;visibility:visible;transform:none}.tm-subnav:before{content:\"\";position:absolute;right:18px;top:-6px;width:10px;height:10px;background:var(--tm-paper,#fffdfa);border-left:1px solid var(--tm-line,#e5ded2);border-top:1px solid var(--tm-line,#e5ded2);transform:rotate(45deg)}.tm-subnav a{display:block!important;color:#66746d!important;background:transparent!important;border-radius:8px!important;padding:9px 11px!important;font-size:10px!important;white-space:nowrap}.tm-subnav a:hover,.tm-subnav a.active{background:#edf4ef!important;color:var(--tm-green,#176b50)!important}@media(max-width:620px){.tm-subnav{display:none!important}}';document.head.appendChild(st);h.innerHTML='<div class=\"tm-head\"><a class=\"tm-brand\" href=\"index.html\"><span class=\"tm-logo\"><i></i><i></i><i></i></span><span><strong>تعاونی مارکت</strong><small>فروشگاه اختصاصی تعاونی</small></span></a><nav class=\"tm-nav\">'+ns+'</nav>'
+          if old_header not in s: raise SystemExit('header template not found')
+          s=s.replace(old_header,new_header,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/site.js .github/workflows/apply-nav.yml
+          git rm .github/workflows/apply-nav.yml
+          git commit -m "Enhance existing top navigation with cascading submenus"
+          git push
