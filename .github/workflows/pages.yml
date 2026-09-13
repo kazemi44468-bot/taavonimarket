@@ -24,6 +24,7 @@ jobs:
           mkdir -p _site
           cp -R . _site
           find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#</body>#<script src="assets/js/mobile-sheet.js"></script></body>#g'
+          find _site -type f -name '*.html' -print0 | xargs -0 sed -i "s#assets/images/logo.png#assets/images/logo.png?v=${GITHUB_SHA}#g"
           rm -rf _site/.git _site/.github
       - name: Configure Pages
         uses: actions/configure-pages@v5
