@@ -1,0 +1,49 @@
+name: Canonicalize source to match GitHub Pages
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  canonicalize:
+    if: github.event.head_commit.message != '[skip canonicalize] Canonicalize source to match Pages preview'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Canonicalize HTML and Pages build
+        shell: bash
+        run: |
+          set -e
+          python3 - <<'PY'
+          from pathlib import Path
+          for p in Path('.').rglob('*.html'):
+              if any(part in {'.git','_site','node_modules'} for part in p.parts):
+                  continue
+              text=p.read_text(encoding='utf-8')
+              if 'assets/css/site.css' not in text:
+                  text=text.replace('</head>','<link rel="stylesheet" href="assets/css/site.css"></head>',1)
+              if 'assets/js/site.js' not in text:
+                  text=text.replace('</body>','<script src="assets/js/site.js"></script></body>',1)
+              p.write_text(text,encoding='utf-8')
+          wf=Path('.github/workflows/pages.yml')
+          text=wf.read_text(encoding='utf-8')
+          old='''      - name: Build unified site shell\n        shell: bash\n        run: |\n          set -e\n          rm -rf _site\n          mkdir _site\n          tar --exclude='./_site' -cf - . | tar -xf - -C _site\n          python3 - <<'PY'\n          from pathlib import Path\n          root=Path('_site')\n          for p in root.rglob('*.html'):\n              text=p.read_text(encoding='utf-8')\n              if 'assets/css/site.css' not in text:\n                  text=text.replace('</head>','<link rel="stylesheet" href="assets/css/site.css"></head>',1)\n              if 'assets/js/site.js' not in text:\n                  text=text.replace('</body>','<script src="assets/js/site.js"></script></body>',1)\n              p.write_text(text,encoding='utf-8')\n          PY\n'''
+          new='''      - name: Prepare Pages artifact\n        shell: bash\n        run: |\n          set -e\n          rm -rf _site\n          mkdir _site\n          tar --exclude='./_site' -cf - . | tar -xf - -C _site\n'''
+          if old not in text:
+              raise SystemExit('Expected Pages build block not found')
+          wf.write_text(text.replace(old,new),encoding='utf-8')
+          PY
+      - name: Commit canonical source
+        shell: bash
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html' '.github/workflows/pages.yml'
+          if git diff --cached --quiet; then
+            echo 'No canonicalization changes needed.'
+            exit 0
+          fi
+          git commit -m '[skip canonicalize] Canonicalize source to match Pages preview'
+          git push
